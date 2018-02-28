@@ -26,7 +26,10 @@ static bool isDigit(char c)
 {
     return c >= '0' && c <= '9';
 }
-
+static bool isSpace(char c)
+{
+    return c == ' ' || c == '\t';
+}
 Token* NextToken(Lexer* lexer)
 {
     while (peek(lexer) != '\0') 
@@ -57,8 +60,16 @@ Token* NextToken(Lexer* lexer)
                         forward(lexer);
                     }
                     token = makeToken(lexer, TOKEN_DIGIT);
+                    break;
                 }
-                break;
+                if (isSpace(c))
+                {
+                    while (isSpace(peek(lexer)))
+                    {
+                        forward(lexer);
+                    }
+                    continue;
+                }                
         }
         return token;
     }
