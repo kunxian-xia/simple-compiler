@@ -6,6 +6,8 @@ typedef enum {
     TOKEN_MINUS,
     TOKEN_MUL,
     TOKEN_DOT,
+    TOKEN_LEFT_PAREN,
+    TOKEN_RIGHT_PAREN,
     TOKEN_DIGIT,
 
     TOKEN_EOF

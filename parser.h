@@ -1,2 +1,10 @@
+#include "lexer.h"
+
+typedef struct 
+{
+    Lexer lexer;
+    Token* next;
+    Token* current;
+} Parser;
 //parse and evaluate an arithmetic expression
-int ParseAndEvaluate(char* sourceCode);
+double ParseAndEvaluate(char* sourceCode);

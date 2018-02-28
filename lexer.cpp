@@ -45,6 +45,10 @@ Token* NextToken(Lexer* lexer)
                 token = makeToken(lexer, TOKEN_MUL); break;
             case '.':
                 token = makeToken(lexer, TOKEN_DOT); break;
+            case '(':
+                token = makeToken(lexer, TOKEN_LEFT_PAREN); break;
+            case ')':
+                token = makeToken(lexer, TOKEN_RIGHT_PAREN); break;
             default:
                 if (isDigit(c)) 
                 {
