@@ -1,7 +1,10 @@
 #include "parser.h"
 #include <string>
 #include <cassert>
+#include <iostream>
 using namespace std;
+
+static double expression(Parser* parser);
 /*
  * the grammar for arithmetic expression is 
  *  expression -> expression + term
@@ -21,23 +24,21 @@ using namespace std;
  *   F   ->  ( E )  | digit  | digit . digit
  *   
  */
-static TokenType* peek(Parser* parser)
+static TokenType peek(Parser* parser)
 {
     return parser->next->type;
 }
-
+static void forward(Parser* parser)
+{
+    parser->current = parser->next;
+    parser->next = NextToken(&(parser->lexer));
+}
 static bool match(Parser* parser, TokenType expected)
 {
     if (peek(parser) != expected) return false;
 
     forward(parser);
     return true;
-}
-
-static void forward(Parser* parser)
-{
-    parser->current = parser->next;
-    parser->next = NextToken(&(parser->lexer));
 }
 
 static double factor(Parser* parser)
@@ -127,8 +128,8 @@ static double expression_prime(Parser* parser, double ep)
 }
 static double expression(Parser* parser)
 {
-    term(parser);
-    expression_prime(parser);
+    double t = term(parser);
+    return expression_prime(parser, t);
 }
 
 double ParseAndEvaluate(char* sourceCode)
@@ -140,8 +141,9 @@ double ParseAndEvaluate(char* sourceCode)
     parser.next = NULL;
     parser.current = NULL;
 
+    forward(&parser);
     double expr = expression(&parser);
-    if (!match(parser, TOKEN_EOF))
+    if (!match(&parser, TOKEN_EOF))
         assert(0);
     return expr;
 }
