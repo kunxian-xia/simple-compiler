@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-    char* sourceCode = "1+1*3";
+    string sourceCode = "struct point { int8 x; int8 y; } ;";
     Lexer* lexer = new Lexer();
     lexer->nextPos = 0;
     lexer->source = sourceCode;
@@ -16,10 +16,7 @@ int main()
         Token* token = NextToken(lexer);
         if (token == NULL || token->type == TOKEN_EOF) break;
 
-        if (token->type == TOKEN_DIGIT) 
-        {
-            cout << stoi(*token->lexval, nullptr) << endl;
-        }
+        cout << token->type << "\t" << token->lexval << endl;
             
     }
 }

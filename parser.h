@@ -1,5 +1,5 @@
 #include "lexer.h"
-
+#include "ast.h"
 typedef struct 
 {
     Lexer lexer;
@@ -7,4 +7,5 @@ typedef struct
     Token* current;
 } Parser;
 //parse and evaluate an arithmetic expression
-double ParseAndEvaluate(char* sourceCode);
+double ParseAndEvaluate(std::string& sourceCode);
+AST* Parse(std::string& sourceCode);
